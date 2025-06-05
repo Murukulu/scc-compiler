@@ -1,0 +1,49 @@
+# OCaml build artifacts
+_build/
+*.annot
+*.cmi
+*.cmo
+*.cma
+*.cmx
+*.cmxa
+*.cmxs
+*.o
+*.a
+*.so
+*.obj
+*.dll
+*.exe
+*.bc
+*.byte
+*.native
+
+# Dune-specific files
+.merlin
+*.install
+
+# Opam local switches
+_opam/
+
+# Merlin IDE files
+.merlin.*
+
+# Editor backup files
+*~
+*.bak
+*.swp
+*.swo
+
+# macOS specific files
+.DS_Store
+._*
+
+# Windows specific files
+Thumbs.db
+
+# Dune cache
+.cache/
+
+# ocaml-lsp/ocamlformat specific
+.ocamllsp
+.ocamlformat-enable
+.ocamlformat-ignore
