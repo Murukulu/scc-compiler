@@ -6,59 +6,75 @@
   };
 
   outputs = { self, nixpkgs, ... }:
-  nixpkgs.lib.genAttrs nixpkgs.lib.systems.flakeExposed (system: 
-    let 
-      pkgs = nixpkgs.legacyPackages.${system};
+    let
+      # --- Define outputs for aarch64-darwin ---
+      darwinPkgs = nixpkgs.legacyPackages.aarch64-darwin;
+      darwinSccPkg = darwinPkgs.stdenv.mkDerivation {
+        pname = "scc";
+        version = "0.1.0"; # Good practice to add a version
 
-      sccPkg = 
-         pkgs.stdenv.mkDerivation {
-          meta = {
-            description = "The Sai-Cyrus-Cassar compiler";
-          };
-          name = "scc";
-          src = ./src;
-          buildInputs = [
-            pkgs.ocaml
-            pkgs.dune_3
-          ];
-          buildPhase = ''
-            runHook preBuild
-            dune build @all
-            runHook postBuild
-          '';
-          doCheck = true;
-          checkPhase = ''
-            runHook preCheck
-            echo "Running project tests"
-            dune runtest
-            runHook postCheck
-          '';
-          installPhase = ''
-            runHook preInstall
-            mkdir -p $out/bin
-            cp ./src/_build/default/scc.exe $out/bin/scc
-            runHook postInstall 
-          '';
+        meta = {
+          description = "The Sai-Cyrus-Cassar compiler";
+          platforms = [ "aarch64-darwin" ];
         };
+
+        src = ./src; # Assumes flake.nix is in root, sources in ./src/
+
+        nativeBuildInputs = [
+          darwinPkgs.ocaml
+          darwinPkgs.dune_3
+        ];
+
+        buildPhase = ''
+          runHook preBuild
+          echo "Building SCC for aarch64-darwin..."
+          dune build @all
+          runHook postBuild
+        '';
+
+        doCheck = true;
+        checkPhase = ''
+          runHook preCheck
+          echo "Running SCC project tests on aarch64-darwin..."
+          dune runtest --display=short --no-buffer
+          runHook postCheck
+        '';
+
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/bin
+          # This assumes 'scc.exe' is in _build/default/ after `dune build`
+          # Please double-check this path relative to your `src` directory root.
+          cp _build/default/scc.exe $out/bin/scc
+          runHook postInstall
+        '';
+      };
+
+      # --- Define outputs for x86_64-linux (Example for CI) ---
+      # You can copy the block above and change the system string if you need to support other systems
+      # linuxPkgs = nixpkgs.legacyPackages.x86_64-linux;
+      # linuxSccPkg = darwinSccPkg.override { pkgs = linuxPkgs; stdenv = linuxPkgs.stdenv; };
+
     in
     {
-        devShells.${system}.default = pkgs.mkShell {
-          name = "ocaml-dev-shell-${system}";
-          buildInputs = [
-            pkgs.ocaml
-            pkgs.dune_3
-          ];
+      # --- Expose outputs for aarch64-darwin ---
+      packages.aarch64-darwin.default = darwinSccPkg;
+      checks.aarch64-darwin.default = darwinSccPkg;
+      devShells.aarch64-darwin.default = darwinPkgs.mkShell {
+        name = "scc-dev-shell-aarch64-darwin";
+        packages = [
+          darwinPkgs.ocaml
+          darwinPkgs.dune_3
+        ];
+        inputsFrom = [ darwinSccPkg ];
+        shellHook = ''
+          echo "Entered SCC OCaml development environment for aarch64-darwin."
+        '';
+      };
 
-          shellHook = ''
-            echo "Entered OCaml development environment for ${system}."
-          '';
-        };
-
-        # Flake build
-        packages.default = sccPkg;
-
-        # Specific checks output
-        checks.default = sccPkg;
-    }
-  );
+      # --- Expose outputs for x86_64-linux (Example for CI) ---
+      # packages.x86_64-linux.default = linuxSccPkg;
+      # checks.x86_64-linux.default = linuxSccPkg;
+      # devShells.x86_64-linux.default = linuxPkgs.mkShell { ... };
+    };
 }
