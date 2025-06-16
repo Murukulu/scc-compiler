@@ -65,10 +65,15 @@
         packages = [
           darwinPkgs.ocaml
           darwinPkgs.dune_3
+          darwinPkgs.ocamlPackages.ocaml-lsp
+          darwinPkgs.zsh
         ];
         inputsFrom = [ darwinSccPkg ];
         shellHook = ''
-          echo "Entered SCC OCaml development environment for aarch64-darwin."
+          echo "Entering SCC OCaml development environment for aarch64-darwin."
+          export PATH=${darwinPkgs.zsh}/bin:$PATH
+          export SHELL=${darwinPkgs.zsh}/bin/zsh
+          exec ${darwinPkgs.zsh}/bin/zsh --login
         '';
       };
 
