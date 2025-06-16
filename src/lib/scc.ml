@@ -1,0 +1,2 @@
+module Scc = struct
+end
