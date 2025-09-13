@@ -1,2 +1,1 @@
-module Scc = struct
-end
+module Lexer = Lexer

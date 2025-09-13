@@ -12,8 +12,9 @@
         let
           # Add OCaml libraries.
           ocamlLibs = with pkgs.ocamlPackages; [
+            async
             core
-            core_unix
+            cmdliner
             findlib # Necessary...
             ocaml-lsp
           ];

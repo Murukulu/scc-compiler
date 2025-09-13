@@ -1,2 +1,4 @@
 (library
- (name scc))
+ (name scc)
+ (modules scc lexer)
+ (libraries async core))

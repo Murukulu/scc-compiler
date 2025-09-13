@@ -1,25 +1,22 @@
-open Core
+open! Core
+open Cmdliner
 
-let command =
-  Command.basic
-    ~summary:"SCC Compiler"
-    (
-      (* 1. This opens the module that provides the special syntax. *)
-      let open Command.Let_syntax in
+let verbose_flag =
+  Arg.(value & flag & info ["v"; "verbose"] ~doc:"Print verbose output.")
 
-      (* 2. This syntax block makes `flag` and others available. *)
-      let%map_open
-        (*
-           CORRECT: `flag` is called inside the `let%map_open` block.
-        *)
-        slow = flag "-slow" no_arg ~doc:"A demonstration flag"
-      in
-      fun () ->
-        if slow then
-          print_endline "hello world (slowly!)"
-        else
-          print_endline "hello world"
-    )
-;;
+let src_file =
+  let doc = "The path to the input file." in
+  let info' = Arg.info ~docv:"FILE_PATH" ~doc ["f"; "file"] in
+  Arg.(required (opt (some file) None info'))
 
-let () = let _ = command in Command.run
+let main src_file verbose =
+  Scc.Lexer.lex src_file verbose
+
+let cmd_info =
+  Cmd.info "SCC Compiler" ~version:"1.0.0" ~doc:"The Sai-Cyrus-Cassar Compiler, developed from scratch."
+
+let main_cmd =
+  Cmd.v cmd_info Term.(const main $ src_file $ verbose_flag)
+
+let () =
+  exit (Cmd.eval main_cmd)

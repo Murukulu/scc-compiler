@@ -1,6 +1,6 @@
 (executable
  (public_name scc)
  (name main)
- (libraries base core core_unix ppx_let scc unix)
+ (libraries base cmdliner core scc unix)
  (preprocess
   (pps ppx_let)))
