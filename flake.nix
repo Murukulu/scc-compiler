@@ -17,6 +17,7 @@
             cmdliner
             findlib # Necessary...
             ocaml-lsp
+            ocamlformat
           ];
 
           # Add build tools and dev utilities (LSP, formatters, etc.).
