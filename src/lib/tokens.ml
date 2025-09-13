@@ -17,7 +17,7 @@ module Operator = struct
     | BitwiseXor
     | BitwiseLeftShift
     | BitwiseRightShift
-    | BitwiseNand
+    | BitwiseClear
     | Increment
     | Decrement
     | PlusAndAssign
@@ -30,7 +30,7 @@ module Operator = struct
     | BitwiseXorAndAssign
     | BitwiseLeftShiftAndAssign
     | BitwiseRightShiftAndAssign
-    | BitwiseNandAndAssign
+    | BitwiseClearAndAssign
     | BitwiseNot
     | LogicalAnd
     | LogicalOr
@@ -69,7 +69,7 @@ module Operator = struct
     | "~" -> Some BitwiseNot
     | "<<" -> Some BitwiseLeftShift
     | ">>" -> Some BitwiseRightShift
-    | "&^" -> Some BitwiseNand
+    | "&^" -> Some BitwiseClear
     | "++" -> Some Increment
     | "--" -> Some Decrement
     | "+=" -> Some PlusAndAssign
@@ -82,7 +82,7 @@ module Operator = struct
     | "^=" -> Some BitwiseXorAndAssign
     | "<<=" -> Some BitwiseLeftShiftAndAssign
     | ">>=" -> Some BitwiseRightShiftAndAssign
-    | "&^=" -> Some BitwiseNandAndAssign
+    | "&^=" -> Some BitwiseClearAndAssign
     | "&&" -> Some LogicalAnd
     | "||" -> Some LogicalOr
     | "!" -> Some LogicalNot
