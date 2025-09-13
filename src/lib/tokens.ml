@@ -17,7 +17,7 @@ module Operator = struct
     | BitwiseXor
     | BitwiseLeftShift
     | BitwiseRightShift
-    | BitwiseAndNot
+    | BitwiseNand
     | Increment
     | Decrement
     | PlusAndAssign
@@ -30,7 +30,7 @@ module Operator = struct
     | BitwiseXorAndAssign
     | BitwiseLeftShiftAndAssign
     | BitwiseRightShiftAndAssign
-    | BitwiseAndNotAndAssign
+    | BitwiseNandAndAssign
     | BitwiseNot
     | LogicalAnd
     | LogicalOr
@@ -47,10 +47,10 @@ module Operator = struct
     | Ellipsis
     | OpenBracket
     | CloseBracket
-    | OpenBracketSquare
-    | CloseBracketSquare
-    | OpenBracketCurly
-    | CloseBracketCurly
+    | OpenSquareBracket
+    | CloseSquareBracket
+    | OpenCurlyBracket
+    | CloseCurlyBracket
     | Comma
     | Period
     | SemiColon
@@ -69,7 +69,7 @@ module Operator = struct
     | "~" -> Some BitwiseNot
     | "<<" -> Some BitwiseLeftShift
     | ">>" -> Some BitwiseRightShift
-    | "&^" -> Some BitwiseAndNot
+    | "&^" -> Some BitwiseNand
     | "++" -> Some Increment
     | "--" -> Some Decrement
     | "+=" -> Some PlusAndAssign
@@ -82,7 +82,7 @@ module Operator = struct
     | "^=" -> Some BitwiseXorAndAssign
     | "<<=" -> Some BitwiseLeftShiftAndAssign
     | ">>=" -> Some BitwiseRightShiftAndAssign
-    | "&^=" -> Some BitwiseAndNotAndAssign
+    | "&^=" -> Some BitwiseNandAndAssign
     | "&&" -> Some LogicalAnd
     | "||" -> Some LogicalOr
     | "!" -> Some LogicalNot
@@ -98,10 +98,10 @@ module Operator = struct
     | "..." -> Some Ellipsis
     | "(" -> Some OpenBracket
     | ")" -> Some CloseBracket
-    | "[" -> Some OpenBracketSquare
-    | "]" -> Some CloseBracketSquare
-    | "{" -> Some OpenBracketCurly
-    | "}" -> Some CloseBracketCurly
+    | "[" -> Some OpenSquareBracket
+    | "]" -> Some CloseSquareBracket
+    | "{" -> Some OpenCurlyBracket
+    | "}" -> Some CloseCurlyBracket
     | "," -> Some Comma
     | "." -> Some Period
     | ";" -> Some SemiColon
