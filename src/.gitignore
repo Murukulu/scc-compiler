@@ -1,5 +1,5 @@
 # OCaml build artifacts
-_build/
+_build/*
 *.annot
 *.cmi
 *.cmo

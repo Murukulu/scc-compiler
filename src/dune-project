@@ -7,7 +7,10 @@
 (source
  (github saiputravu/scc-compiler))
 
-(authors "Sai Putravu <unknown@unknown.com>" "Cyrus Knopf <unknown@unknown.com>" "Tom Cassar <unknown@unknown.com>")
+(authors
+ "Sai Putravu <unknown@unknown.com>"
+ "Cyrus Knopf <unknown@unknown.com>"
+ "Tom Cassar <unknown@unknown.com>")
 
 (license LICENSE)
 
@@ -18,7 +21,6 @@
  (synopsis "The Sai-Cyrus-Cassar Compiler")
  (description "TODO: A longer description")
  (depends ocaml)
- (tags
-  ())
+ (tags ()))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html
