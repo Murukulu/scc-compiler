@@ -4,9 +4,6 @@ open Ast
 
 (* https://go.dev/ref/spec#Expressions *)
 
-module PackageName = struct
-end
-
 let parse _tokens =
   ()
 
@@ -39,10 +36,10 @@ let _parse_import_decl (tokens : Token.t list) : (Ast.import_decl * Token.t list
   | (Keyword Keyword.Import) :: (Operator Operator.OpenBracket) :: rest ->
     let rec aux imports toks =
       match _parse_import_spec toks with
-      | Some (spec, Operator Operator.SemiColon :: rest') -> aux (spec :: imports) rest'
-      | Some (spec, Operator Operator.CloseBracket :: rest') ->
-        Some (List.rev (spec :: imports ), rest')
-      | _ -> None
+        | Some (spec, Operator Operator.SemiColon :: rest') -> aux (spec :: imports) rest'
+        | Some (spec, Operator Operator.CloseBracket :: rest') ->
+          Some (List.rev (spec :: imports ), rest')
+        | _ -> None
     in
     begin
     match aux [] rest with
