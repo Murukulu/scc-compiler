@@ -1,6 +1,3 @@
-open! Core
-open! Async
-
 module Imaginary = struct
   type t = Integer of int64 | Float of float [@@warning "-37"]
 end
@@ -150,6 +147,10 @@ module Keyword = struct
 end
 
 module Token = struct
-  type t = Identifier of string | Literal of Literal.t | Keyword of Keyword.t
+  type t =
+    | Identifier of string
+    | Literal of Literal.t
+    | Keyword of Keyword.t
+    | Operator of Operator.t
   [@@warning "-37"]
 end

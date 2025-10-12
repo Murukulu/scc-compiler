@@ -1,6 +1,6 @@
 (library
  (name scc)
- (modules scc lexer tokens)
+ (modules scc tokens lexer ast parser)
  (libraries async core)
  (preprocess
   (pps ppx_let)))

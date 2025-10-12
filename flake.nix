@@ -17,12 +17,12 @@
             cmdliner
             findlib # Necessary...
             ocaml-lsp
-            ocamlformat
           ];
 
           # Add build tools and dev utilities (LSP, formatters, etc.).
           buildTools = with pkgs; [
             ocaml
+            ocamlformat_0_27_0
             dune_3
             zsh
           ];
