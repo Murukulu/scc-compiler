@@ -16,9 +16,37 @@ module Literal : sig
 end
 
 module Keyword : sig
-  type t
+type t =
+    | Break
+    | Default
+    | Func
+    | Interface
+    | Select
+    | Case
+    | Defer
+    | Go
+    | Map
+    | Struct
+    | Chan
+    | Else
+    | Goto
+    | Package
+    | Switch
+    | Const
+    | Fallthrough
+    | If
+    | Range
+    | Type
+    | Continue
+    | For
+    | Import
+    | Return
+    | Var
 end
 
 module Token : sig
-  type t
+  type t =
+  | Identifier of string
+  | Literal of Literal.t
+  | Keyword of Keyword.t
 end
