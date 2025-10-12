@@ -2,8 +2,56 @@ open! Core
 open! Async
 
 module Operator : sig
-  type t
-
+  type t =
+    | Plus
+    | Minus
+    | Multiply
+    | Divide
+    | Modulo
+    | BitwiseOr
+    | BitwiseAnd
+    | BitwiseXor
+    | BitwiseLeftShift
+    | BitwiseRightShift
+    | BitwiseClear
+    | Increment
+    | Decrement
+    | PlusAndAssign
+    | MinusAndAssign
+    | MultiplyAndAssign
+    | DivideAndAssign
+    | ModuloAndAssign
+    | BitwiseOrAndAssign
+    | BitwiseAndAndAssign
+    | BitwiseXorAndAssign
+    | BitwiseLeftShiftAndAssign
+    | BitwiseRightShiftAndAssign
+    | BitwiseClearAndAssign
+    | BitwiseNot
+    | LogicalAnd
+    | LogicalOr
+    | LogicalNot
+    | Receive
+    | Equals
+    | NotEquals
+    | LessThan
+    | LessThanOrEqualTo
+    | GreaterThan
+    | GreaterThanOrEqualTo
+    | Assign
+    | Declaration
+    | Ellipsis
+    | OpenBracket
+    | CloseBracket
+    | OpenSquareBracket
+    | CloseSquareBracket
+    | OpenCurlyBracket
+    | CloseCurlyBracket
+    | Comma
+    | Period
+    | SemiColon
+    | Colon
+  
   val of_string : string -> t option
 end
 
@@ -12,11 +60,16 @@ module Imaginary : sig
 end
 
 module Literal : sig
-  type t
+  type t =
+    | Integer of int64
+    | Float of float
+    | Imaginary of Imaginary.t
+    | Rune of Uchar.t
+    | String of String.t
 end
 
 module Keyword : sig
-type t =
+  type t =
     | Break
     | Default
     | Func
@@ -49,4 +102,5 @@ module Token : sig
   | Identifier of string
   | Literal of Literal.t
   | Keyword of Keyword.t
+  | Operator of Operator.t
 end

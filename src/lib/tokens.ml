@@ -151,5 +151,6 @@ module Token = struct
     | Identifier of string
     | Literal of Literal.t
     | Keyword of Keyword.t
+    | Operator of Operator.t
   [@@warning "-37"]
 end
